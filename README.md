@@ -36,9 +36,11 @@
 > *(Add your screenshots here for GitHub attraction)*
 
 ```
-/screenshots/dashboard.png
-/screenshots/admin.png
-/screenshots/report.png
+/Screenshot (669).png
+/Screenshot (670).png
+/Screenshot (671).png
+/Screenshot (672).png
+/Screenshot (673).png
 ```
 
 ---
