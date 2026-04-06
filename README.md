@@ -1,197 +1,245 @@
-# 🛡️ VERIDEX v3 — "Verify Before You Click"
-> Full-stack Cybersecurity Platform | JWT Auth | In-Memory Backend | Admin Dashboard
+# 🛡️ VERIDEX v3 — *Verify Before You Click*
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Status-Active-success?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/Backend-Node.js-green?style=for-the-badge&logo=node.js"/>
+  <img src="https://img.shields.io/badge/Frontend-React-blue?style=for-the-badge&logo=react"/>
+  <img src="https://img.shields.io/badge/Auth-JWT-orange?style=for-the-badge&logo=jsonwebtokens"/>
+  <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge"/>
+</p>
+
+<p align="center">
+  <b>Cybersecurity platform to detect fraudulent URLs & phishing emails in real-time.</b><br/>
+  Built with scalable architecture, secure authentication, and intelligent detection engine.
+</p>
 
 ---
 
-## 🚀 Quick Start
+## 🚀 Live Demo
+
+🔗 **Frontend:** https://your-frontend-link.com
+🔗 **Backend API:** https://your-backend-link.com
+
+---
+
+## ✨ Key Highlights
+
+* 🔍 **Advanced URL & Email Fraud Detection**
+* 🔐 **Secure JWT Authentication System**
+* 👤 **Role-Based Access (User / Admin)**
+* 📊 **Interactive Dashboard & Reports**
+* ⚡ **Blazing Fast In-Memory Backend**
+* 📄 **PDF Report Generation**
+* 🛠️ **Admin Control Panel**
+* 📱 **Fully Responsive UI**
+
+---
+
+## 📸 Screenshots
+
+> *(Add your screenshots here for GitHub attraction)*
+
+```
+/screenshots/dashboard.png
+/screenshots/admin.png
+/screenshots/report.png
+```
+
+---
+
+## ⚡ Quick Start
+
+### Clone Repository
 
 ```bash
-# Terminal 1 — Backend
+git clone https://github.com/<your-username>/veridex-v3.git
+cd veridex-v3
+```
+
+---
+
+### Run Backend
+
+```bash
 cd backend
 npm install
-npm run dev          # → http://localhost:5000
+npm run dev
+```
 
-# Terminal 2 — Frontend  
+---
+
+### Run Frontend
+
+```bash
 cd frontend
 npm install
-npm run dev          # → http://localhost:3000
-```
-
-### 🔑 Demo Credentials
-| Email | Password | Role |
-|---|---|---|
-| admin@veridex.com | admin123 | **Admin** (full Admin Panel access) |
-| demo@veridex.com  | demo1234 | User (Dashboard access) |
-| Click **"Continue as Guest"** | — | Guest (no history saved) |
-
----
-
-## 🗂️ Project Structure
-
-```
-veridex/
-├── backend/
-│   └── src/
-│       ├── data/
-│       │   └── store.js              ← In-memory users[] + analyses[] arrays
-│       ├── controllers/
-│       │   ├── authController.js     ← signup, login, getMe
-│       │   ├── analysisController.js ← scanUrl, scanEmail, getHistory, delete
-│       │   └── adminController.js    ← getAllUsers, getAllAnalyses, stats, delete
-│       ├── middleware/
-│       │   ├── auth.js               ← protect (JWT) + adminOnly middleware
-│       │   └── validate.js           ← express-validator error handler
-│       ├── routes/
-│       │   ├── auth.js               ← /api/auth/*
-│       │   ├── analysis.js           ← /api/analysis/* (JWT protected)
-│       │   └── admin.js              ← /api/admin/* (admin only)
-│       └── utils/
-│           ├── token.js              ← JWT sign/verify
-│           └── detection/
-│               ├── urlDetector.js    ← 13 modular URL checks
-│               └── emailDetector.js  ← 10 modular email checks
-│
-└── frontend/
-    └── src/
-        ├── context/AuthContext.jsx   ← JWT auth state + API calls
-        ├── components/
-        │   ├── ProtectedRoute.jsx    ← requireAdmin prop support
-        │   ├── Navbar.jsx            ← auth-aware + admin link
-        │   └── Footer.jsx            ← all-pages footer
-        ├── pages/
-        │   ├── auth/
-        │   │   ├── Login.jsx         ← JWT login + remember me
-        │   │   └── Signup.jsx        ← validation + password strength
-        │   ├── dashboard/
-        │   │   ├── DashboardLayout.jsx
-        │   │   ├── DashboardHome.jsx  ← live history from API
-        │   │   ├── Reports.jsx        ← filterable history + PDF + delete
-        │   │   ├── Profile.jsx
-        │   │   ├── SettingsPage.jsx
-        │   │   └── ActivityLog.jsx
-        │   └── admin/
-        │       ├── AdminLayout.jsx    ← admin sidebar shell
-        │       ├── AdminOverview.jsx  ← stats, charts, system status
-        │       ├── AdminUsers.jsx     ← all users + delete
-        │       ├── AdminAnalyses.jsx  ← all scans + filter + delete
-        │       └── AdminFlagged.jsx   ← fraud-level activities
-        └── utils/
-            └── api.js                ← authApi, analysisApi, adminApi
+npm run dev
 ```
 
 ---
 
-## 🔐 API Reference
+## 🔑 Demo Credentials
 
-### Auth (no token required)
-| Method | Endpoint | Body | Description |
-|---|---|---|---|
-| POST | /api/auth/signup | `{name, email, password}` | Register new user |
-| POST | /api/auth/login  | `{email, password, remember}` | Login, get JWT |
-| GET  | /api/auth/me     | — (Bearer token) | Get current user |
-
-### Analysis (JWT required)
-| Method | Endpoint | Body / Params | Description |
-|---|---|---|---|
-| POST | /api/analysis/url   | `{url}` | Scan a URL, saves to history |
-| POST | /api/analysis/email | `{content}` | Analyze email, saves to history |
-| GET  | /api/analysis/history | `?type&result&search&page&limit` | Get my history |
-| DELETE | /api/analysis/:id | — | Delete my record |
-
-### Admin (JWT + admin role)
-| Method | Endpoint | Description |
-|---|---|---|
-| GET  | /api/admin/stats | Overall platform statistics |
-| GET  | /api/admin/users | All registered users |
-| DELETE | /api/admin/users/:id | Delete user + their data |
-| GET  | /api/admin/analyses | All analyses across all users |
-| DELETE | /api/admin/analyses/:id | Delete any analysis record |
+| Role     | Email                                         | Password |
+| -------- | --------------------------------------------- | -------- |
+| 👑 Admin | [admin@veridex.com](mailto:admin@veridex.com) | admin123 |
+| 👤 User  | [demo@veridex.com](mailto:demo@veridex.com)   | demo1234 |
+| 👀 Guest | No login required                             | —        |
 
 ---
 
-## 🔐 Auth Flow
+## 🧠 System Architecture
 
 ```
-POST /api/auth/signup → { token, user }
-POST /api/auth/login  → { token, user }
+Client (React)
      ↓
-Frontend stores token in sessionStorage (or localStorage if "Remember Me")
+API Layer (Express)
      ↓
-All /api/analysis/* and /api/admin/* calls send: Authorization: Bearer <token>
+Controllers
      ↓
-protect middleware verifies JWT → attaches req.user
-adminOnly middleware also checks req.user.role === 'admin'
+Detection Engine
+     ↓
+In-Memory Storage
 ```
 
 ---
 
-## 🧠 Detection Architecture
+## 🔎 Detection Engine
 
-### URL Detector (13 checks)
-Each check is a named function: `(parsed, original) => { triggered, weight, reason }`
+### URL Detection (13 Heuristics)
 
-| Check | Weight |
-|---|---|
-| HTTP (not HTTPS) | 20 |
-| Raw IP address | 40 |
-| @ symbol in URL | 30 |
-| Suspicious TLD (.tk, .ml, etc.) | 25 |
-| Brand mimicry (paypal, amazon…) | 12–35 |
-| URL length > 100 chars | 15 |
-| 3+ subdomains | 15 |
-| 3+ hyphens in domain | 10 |
-| Suspicious path keywords | 8 each |
-| URL shortener | 20 |
-| Punycode/IDN homograph | 35 |
-| Dangerous file extension | 40 |
-| Oversized domain segment | 12 |
+* Suspicious domains & TLDs
+* Phishing keywords
+* URL shortening services
+* Punycode attacks
+* IP-based URLs
+* HTTPS validation
 
-### Email Detector (10 checks)
-| Check | Weight |
-|---|---|
-| Urgency language (2+ triggers) | 25 |
-| Threat language | 30 |
-| Lure/prize language | 28 |
-| Credential harvesting phrases | 32 |
-| Financial scam indicators | 35 |
-| Brand impersonation via free email | 15–35 |
-| Suspicious embedded links | 15 each |
-| Excessive capitalization | 10 |
-| Excessive exclamation marks | 8 |
-| Generic greeting | 12 |
+### Email Detection (10 Heuristics)
 
-**Result thresholds:**
-- URL: `< 30` = safe, `30–64` = suspicious, `≥ 65` = fraud
-- Email: `< 25` = safe, `25–59` = suspicious, `≥ 60` = fraud
+* Urgency & threat language
+* Fake brand impersonation
+* Credential harvesting attempts
+* Suspicious links
+* Scam indicators
 
 ---
 
-## 🗄️ Data Storage (In-Memory)
+## 📊 Risk Classification
 
-All data stored in `backend/src/data/store.js` as plain JS arrays.
-
-- **Resets on server restart** (by design — no DB required)
-- Demo accounts are **seeded on startup** (admin + demo user)
-- Each analysis record: `{ id, userId, type, content, result, reasons, timestamp, flagged }`
-- To upgrade to MongoDB: replace `store.getUsers()` etc. with Mongoose model calls
+| Type  | Safe | Suspicious | Fraud |
+| ----- | ---- | ---------- | ----- |
+| URL   | < 30 | 30–64      | ≥ 65  |
+| Email | < 25 | 25–59      | ≥ 60  |
 
 ---
 
-## 🎨 Tech Stack
+## 🔐 Authentication Flow
 
-| Layer | Tech |
-|---|---|
-| Frontend | React 18 + Vite |
-| Routing | React Router v6 |
-| Styling | Tailwind CSS v3 |
-| Animations | Framer Motion |
-| Icons | Lucide React |
-| PDF | jsPDF |
-| Backend | Node.js + Express |
-| Auth | bcryptjs + jsonwebtoken |
-| Validation | express-validator |
-| Rate Limiting | express-rate-limit |
+```text
+Login → JWT Token → Stored in Browser
+        ↓
+Protected API Calls (Bearer Token)
+        ↓
+Middleware Verification
+        ↓
+Access Granted / Denied
+```
 
 ---
 
-*Veridex v3 — "Verify Before You Click." Production-structured, no-database prototype.*
+## 🛠️ Tech Stack
+
+### Frontend
+
+* React 18 (Vite)
+* Tailwind CSS
+* Framer Motion
+* React Router v6
+
+### Backend
+
+* Node.js
+* Express.js
+* JWT Auth
+* bcryptjs
+* express-validator
+
+---
+
+## 📡 API Overview
+
+### Auth
+
+* POST `/api/auth/signup`
+* POST `/api/auth/login`
+* GET `/api/auth/me`
+
+### Analysis
+
+* POST `/api/analysis/url`
+* POST `/api/analysis/email`
+* GET `/api/analysis/history`
+
+### Admin
+
+* GET `/api/admin/stats`
+* GET `/api/admin/users`
+* GET `/api/admin/analyses`
+
+---
+
+## 🚀 Deployment
+
+| Platform | Status           |
+| -------- | ---------------- |
+| Frontend | Vercel / Netlify |
+| Backend  | Render / Railway |
+
+---
+
+## 📈 Future Scope
+
+* 🤖 AI/ML-based detection model
+* 🌍 Public API release
+* 📱 Mobile application
+* 🔔 Real-time alerts
+* ☁️ Cloud database integration
+
+---
+
+## 🤝 Contributing
+
+```bash
+git checkout -b feature/new-feature
+git commit -m "Added new feature"
+git push origin feature/new-feature
+```
+
+---
+
+## 📄 License
+
+MIT License © 2026
+
+---
+
+## 👨‍💻 Author
+
+**Nishank Sanghvi**
+
+---
+
+## ⭐ Show Your Support
+
+If you like this project:
+
+⭐ Star the repo
+🍴 Fork it
+📢 Share it
+
+---
+
+<p align="center">
+  🛡️ <b>Veridex v3 — Because one click can cost everything.</b>
+</p>
