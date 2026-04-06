@@ -15,10 +15,6 @@
 
 ---
 
-## 🚀 Live Demo
-
-🔗 **Frontend:** https://your-frontend-link.com
-🔗 **Backend API:** https://your-backend-link.com
 
 ---
 
@@ -224,9 +220,7 @@ MIT License © 2026
 
 ---
 
-## 👨‍💻 Author
 
-**Nishank Sanghvi**
 
 ---
 
