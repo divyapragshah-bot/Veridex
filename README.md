@@ -31,19 +31,7 @@
 
 ---
 
-## 📸 Screenshots
 
-> *(Add your screenshots here for GitHub attraction)*
-
-```
-![Dashboard](/Screenshot (669).png)
-![Admin Panel](/Screenshot (670).png)
-![Reports](/Screenshot (671).png)
-![Reports](/Screenshot (672).png)
-![Reports](/Screenshot (673).png)
-```
-
----
 
 ## ⚡ Quick Start
 
